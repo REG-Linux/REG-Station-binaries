@@ -16,7 +16,7 @@ permissions:
 jobs:
   compile-regstation:
     name: Compile regstation
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       regstationversion: ${{ steps.compile_regstation_step.outputs.regstationversion }}
       dorelease: ${{ steps.compile_regstation_step.outputs.dorelease }}
