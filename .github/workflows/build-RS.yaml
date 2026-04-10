@@ -44,6 +44,7 @@ jobs:
         uses: actions/checkout@v6.0.2
         with:
           repository: REG-Linux/REG-WIP
+          ref: regstation
           token: ${{ secrets.REG_TOKEN }}
           submodules: true
 
@@ -75,7 +76,7 @@ jobs:
             sed -i '/stamp_staging_installed\:/,/stamp_images_installed\:/ s:^$:\techo "host/\$(GNU_TARGET_NAME)/sysroot" > "\$(BUILD_DIR)/staging.dir"\n:' buildroot/package/pkg-generic.mk
             
             # Enable the flag and token to build regstation from source
-            #sed -i 's/#BR2_PACKAGE_REGSTATION_BUILD_FROM_SOURCE=y/BR2_PACKAGE_REGSTATION_BUILD_FROM_SOURCE=y/' configs/reglinux-board.common
+            sed -i 's/#BR2_PACKAGE_REGSTATION_BUILD_FROM_SOURCE=y/BR2_PACKAGE_REGSTATION_BUILD_FROM_SOURCE=y/' configs/reglinux-board.common
             echo "${GH_TOKEN}" > ./gh_token
             
             # Use cached toolchain if available from REG-Linux/REG-llvm-binaries
@@ -132,13 +133,12 @@ jobs:
           path: ./
           merge-multiple: true
       - name: Create release
-        uses: softprops/action-gh-release@v2.6.1
+        uses: ncipollo/release-action@v1.21.0
         with:
-          repository: REG-Linux/REG-Station-binaries
-          token: ${{ secrets.REG_TOKEN }}
-          files: regstation-${{ needs.compile-regstation.outputs.regstationversion }}-*
-          tag_name: ${{ needs.compile-regstation.outputs.regstationversion }}
-          prerelease: false
-          make_latest: true
-          generate_release_notes: true
+          allowUpdates: true
+          artifacts: regstation-${{ needs.compile-regstation.outputs.regstationversion }}-*
+          generateReleaseNotes: true
+          makeLatest: true
           name: regstation binaries (${{ needs.compile-regstation.outputs.regstationversion }})
+          tag: ${{ needs.compile-regstation.outputs.regstationversion }}
+          updateOnlyUnreleased: false
