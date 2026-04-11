@@ -23,70 +23,69 @@ jobs:
     strategy:
       matrix:
         #cpu: [jz4770]
-        #cpu: [arm1176jzf_s, cortex_a7, cortex_a9, cortex_a15_a7, cortex_a17, cortex_a35, cortex_a53, cortex_a55, cortex_a72, cortex_a72_a53, cortex_a73_a53, cortex_a75_a55, cortex_a76, cortex_a76_a55, riscv, saphira, x86_64, x86_64_v3]
-        cpu: [cortex_a7, cortex_a76_a55, saphira]
+        cpu: [arm1176jzf_s, cortex_a7, cortex_a9, cortex_a15_a7, cortex_a17, cortex_a35, cortex_a53, cortex_a55, cortex_a72, cortex_a72_a53, cortex_a73_a53, cortex_a75_a55, cortex_a76, cortex_a76_a55, riscv, saphira, x86_64, x86_64_v3]
         include:
           # MUSL 32 bit
-          #- target: bcm2835
-          #  cpu: arm1176jzf_s
+          - target: bcm2835
+            cpu: arm1176jzf_s
           # arch: armhf-musl
           - target: h3
             cpu: cortex_a7
           # arch: armv7-musl
-          #- target: s812
-          #  cpu: cortex_a9
+          - target: s812
+            cpu: cortex_a9
           # arch: armv7-musl
-          #- target: odroidxu4
-          #  cpu: cortex_a15_a7
+          - target: odroidxu4
+            cpu: cortex_a15_a7
           # arch: armv7-musl
-          #- target: rk3288
-          #  cpu: cortex_a17
+          - target: rk3288
+            cpu: cortex_a17
           # arch: armv7-musl
           # MUSL 64 bit
-          #- target: rk3326
-          #  cpu: cortex_a35
+          - target: rk3326
+            cpu: cortex_a35
           # arch: aarch64-musl
-          #- target: h616
-          #  cpu: cortex_a53
+          - target: h616
+            cpu: cortex_a53
           # arch: aarch64-musl
           ##- target: jz4770
           ##  cpu: jz4770
           ### arch: mips-musl
           # GLIBC
-          #- target: rk3568
-          #  cpu: cortex_a55
+          - target: rk3568
+            cpu: cortex_a55
           # arch: aarch64-glibc
-          #- target: bcm2711
-          #  cpu: cortex_a72
+          - target: bcm2711
+            cpu: cortex_a72
           # arch: aarch64-glibc
-          #- target: rk3399
-          #  cpu: cortex_a72_a53
+          - target: rk3399
+            cpu: cortex_a72_a53
           # arch: aarch64-glibc
-          #- target: s922x
-          #  cpu: cortex_a73_a53
+          - target: s922x
+            cpu: cortex_a73_a53
           # arch: aarch64-glibc
-          #- target: sdm845
-          #  cpu: cortex_a75_a55
+          - target: sdm845
+            cpu: cortex_a75_a55
           # arch: aarch64-glibc
-          #- target: bcm2712
-          #  cpu: cortex_a76
+          - target: bcm2712
+            cpu: cortex_a76
           # arch: aarch64-glibc
           - target: sm8250
             cpu: cortex_a76_a55
           # arch: aarch64-glibc
-          #- target: jh7110
-          #  cpu: riscv
+          - target: jh7110
+            cpu: riscv
           # arch: riscv-glibc
           - target: asahi
             cpu: saphira
           # arch: asahi-glibc
-          #- target: x86_64
-          #  cpu: x86_64
+          - target: x86_64
+            cpu: x86_64
           # arch: x86_64-glibc
-          #- target: x86_64_v3
-          #  cpu: x86_64_v3
+          - target: x86_64_v3
+            cpu: x86_64_v3
           # arch: x86_64-glibc
-      fail-fast: true
+      fail-fast: false
 
     steps:
       - name: Login to GHCR
@@ -101,7 +100,6 @@ jobs:
         uses: actions/checkout@v6.0.2
         with:
           repository: REG-Linux/REG-WIP
-          ref: regstation
           token: ${{ secrets.REG_TOKEN }}
           submodules: true
 
@@ -127,7 +125,7 @@ jobs:
             sed -i '/BR2_CCACHE/d' configs/reglinux-board.common
             
             # After each package is installed, delete downloaded files
-            # sed -i '/stamp_installed\:/,/stamp_dircleaned\:/ s:^$:\trm -rfv "\$(\$(PKG)_DL_DIR)"\n:' buildroot/package/pkg-generic.mk
+            sed -i '/stamp_installed\:/,/stamp_dircleaned\:/ s:^$:\trm -rfv "\$(\$(PKG)_DL_DIR)"\n:' buildroot/package/pkg-generic.mk
             
             # Hack needed to retrieve the proper staging name directory when packaging
             sed -i '/stamp_staging_installed\:/,/stamp_images_installed\:/ s:^$:\techo "host/\$(GNU_TARGET_NAME)/sysroot" > "\$(BUILD_DIR)/staging.dir"\n:' buildroot/package/pkg-generic.mk
