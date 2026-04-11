@@ -127,7 +127,7 @@ jobs:
             sed -i '/BR2_CCACHE/d' configs/reglinux-board.common
             
             # After each package is installed, delete downloaded files
-            sed -i '/stamp_installed\:/,/stamp_dircleaned\:/ s:^$:\trm -rfv "\$(\$(PKG)_DL_DIR)"\n:' buildroot/package/pkg-generic.mk
+            # sed -i '/stamp_installed\:/,/stamp_dircleaned\:/ s:^$:\trm -rfv "\$(\$(PKG)_DL_DIR)"\n:' buildroot/package/pkg-generic.mk
             
             # Hack needed to retrieve the proper staging name directory when packaging
             sed -i '/stamp_staging_installed\:/,/stamp_images_installed\:/ s:^$:\techo "host/\$(GNU_TARGET_NAME)/sysroot" > "\$(BUILD_DIR)/staging.dir"\n:' buildroot/package/pkg-generic.mk
