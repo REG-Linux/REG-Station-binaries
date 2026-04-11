@@ -86,7 +86,7 @@ jobs:
           #- target: x86_64_v3
           #  cpu: x86_64_v3
           # arch: x86_64-glibc
-      fail-fast: false
+      fail-fast: true
 
     steps:
       - name: Login to GHCR
