@@ -42,7 +42,7 @@ LGPL-2.1 section 6 requires.
 
 REG-Station includes open-source code compiled into the binary
 (EmulationStation and batocera-emulationstation, rcheevos, GLM, libspng,
-stb, RapidJSON, glslang, SPIRV-Cross, libyuv, FlatBuffers, miniz and
+stb, RapidJSON, glslang, SPIRV-Cross, libyuv, FlatBuffers, libra and
 others), and installs fonts under their own licences (Apache-2.0,
 SIL OFL 1.1, Ubuntu Font Licence).
 
