@@ -1,5 +1,9 @@
 # REG-Station licence
 
+<!-- SPDX-License-Identifier: LicenseRef-REG-Station -->
+
+**Licence identifier:** `LicenseRef-REG-Station` (proprietary, with open-source parts listed in section 2). There is no SPDX licence for it, so GitHub lists this file as "Other".
+
 Copyright (c) 2026 the REG-Linux authors (Romain Tisserand, Carlos
 Martins), except the parts listed in section 2.
 

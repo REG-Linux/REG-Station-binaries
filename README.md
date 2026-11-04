@@ -10,7 +10,7 @@ else.
 
 | Component | Licence |
 |-----------|---------|
-| `regstation`, its translations and its own data files | Proprietary. See [LICENSE.md](LICENSE.md) |
+| `regstation`, its translations and its own data files | Proprietary (`LicenseRef-REG-Station`). See [LICENSE.md](LICENSE.md) |
 | Open-source code compiled in (EmulationStation, rcheevos, glslang, SPIRV-Cross and others) | Their own licences. See `/usr/share/regstation/THIRD_PARTY_LICENSES` in each archive |
 | Bundled fonts | Apache-2.0, SIL OFL 1.1, Ubuntu Font Licence. See `THIRD_PARTY_LICENSES` |
 | Start-up scripts and sway/weston configuration | REG-Linux's licence |
